@@ -53,14 +53,34 @@ class CategoryTest extends TestCase
     }
 
     /** @test */
+    // public function it_can_delete_a_category()
+    // {
+    //     $category = Category::factory()->create();
+
+    //     $response = $this->deleteJson("/api/categories/{$category->id}");
+
+    //     $response->assertStatus(200);
+    //     $response->assertJson(['message' => 'Category deleted successfully']);
+
+    //     //$response->assertJson(['message' => 'Category deleted']);
+    //     $this->assertDatabaseMissing('categories', ['id' => $category->id]);
+    // }
     public function it_can_delete_a_category()
-    {
-        $category = Category::factory()->create();
+{
+    // Create a category
+    $category = Category::factory()->create();
 
-        $response = $this->deleteJson("/api/categories/{$category->id}");
+    // Send the delete request
+    $response = $this->deleteJson("/api/categories/{$category->id}");
 
-        $response->assertStatus(200);
-        $response->assertJson(['message' => 'Category deleted']);
-        $this->assertDatabaseMissing('categories', ['id' => $category->id]);
-    }
+    // Assert that the response status is 200 (OK)
+    $response->assertStatus(200);
+
+    // Assert that the response JSON contains the correct success message
+    $response->assertJson(['message' => 'Category deleted successfully']);
+
+    // Assert that the category is removed from the database
+    $this->assertDatabaseMissing('categories', ['id' => $category->id]);
+}
+
 }

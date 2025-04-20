@@ -64,16 +64,36 @@ class ProductTest extends TestCase
     }
 
     /** @test */
+    // public function it_can_delete_a_product()
+    // {
+    //     $category = Category::factory()->create();
+    //     $product = Product::factory()->create(['category_id' => $category->id]);
+
+    //     $response = $this->deleteJson("/api/products/{$product->id}");
+
+    //     $response->assertStatus(200);
+    //     $response->assertJson(['message' => 'Product deleted successfully']);
+
+    //    // $response->assertJson(['message' => 'Product deleted']);
+    //     $this->assertDatabaseMissing('products', ['id' => $product->id]);
+    // }
     public function it_can_delete_a_product()
-    {
-        $category = Category::factory()->create();
-        $product = Product::factory()->create(['category_id' => $category->id]);
+{
+    // Create a product
+    $product = Product::factory()->create();
 
-        $response = $this->deleteJson("/api/products/{$product->id}");
+    // Send the delete request
+    $response = $this->deleteJson("/api/products/{$product->id}");
 
-        $response->assertStatus(200);
-        $response->assertJson(['message' => 'Product deleted']);
-        $this->assertDatabaseMissing('products', ['id' => $product->id]);
-    }
+    // Assert that the response status is 200 (OK)
+    $response->assertStatus(200);
+
+    // Assert that the response JSON contains the correct success message
+    $response->assertJson(['message' => 'Product deleted successfully']);
+
+    // Assert that the product is removed from the database
+    $this->assertDatabaseMissing('products', ['id' => $product->id]);
+}
+
 }
 
