@@ -75,3 +75,6 @@ json
 
 
 4.http://127.0.0.1:8000/api/products/{id} To Delete Product -> Method Delete
+
+Unuit Test
+Run Command php artisan test
